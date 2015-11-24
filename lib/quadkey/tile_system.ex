@@ -65,10 +65,10 @@ defmodule Quadkey.TileSystem do
     end
   end
   def around_tile({tile_x, tile_y}, precision) do
-    size_of_map = size_of_map(precision)
-    tiles = Enum.map([tile_x-1, tile_x, tile_x+1], fn(x) ->
+    size_of_tile = 1 <<< precision
+    Enum.map([tile_x-1, tile_x, tile_x+1], fn(x) ->
       Enum.map([tile_y-1, tile_y, tile_y+1], fn(y) ->
-        {put_in_size(x, size_of_map), put_in_size(y, size_of_map)}
+        {put_in_size(x, size_of_tile), put_in_size(y, size_of_tile)}
       end)
     end) |> List.flatten
       |> Enum.uniq
